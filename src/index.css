@@ -1,0 +1,59 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@theme {
+  --color-bg: #f9f7f4;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f3efea;
+  --color-primary: #3b2417;
+  --color-primary-hover: #29180e;
+  --color-primary-light: #f0eae1;
+  --color-brown-dark: #24140b;
+  --color-brown-medium: #5a3825;
+  --color-brown-light: #8a6046;
+  --color-heading: #1c1917;
+  --color-muted: #736b63;
+  --color-border: #e8e3da;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-sans: "Switzer", system-ui, -apple-system, sans-serif;
+}
+
+/* Fallback & explicit theme tokens ensuring 100% reliability in Tailwind v4 */
+:root {
+  --app-bg: #f9f7f4;
+  --app-surface: #ffffff;
+  --app-primary: #3b2417;
+  --app-primary-hover: #29180e;
+  --app-brown-dark: #24140b;
+  --app-brown-medium: #5a3825;
+  --app-heading: #1c1917;
+  --app-muted: #736b63;
+  --app-border: #e8e3da;
+}
+
+body {
+  background-color: var(--app-bg);
+  color: var(--app-heading);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-serif-brand {
+  font-family: var(--font-serif);
+}
+
+/* Custom tailoring craftsman scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f9f7f4;
+}
+::-webkit-scrollbar-thumb {
+  background: #d8d1c5;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5a3825;
+}
