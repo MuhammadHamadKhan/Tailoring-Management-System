@@ -55,10 +55,7 @@ export default function CustomerDetails() {
   });
 
   // 2. Fetch Customer Orders
-  const {
-    data: ordersData,
-    isLoading: isOrdersLoading,
-  } = useQuery({
+  const { data: ordersData, isLoading: isOrdersLoading } = useQuery({
     queryKey: ["customer-orders", id],
     queryFn: () => getOneCustomerOrders(id),
     enabled: !!id,
@@ -235,11 +232,14 @@ export default function CustomerDetails() {
                   <span>
                     Registered:{" "}
                     {customer.createdAt
-                      ? new Date(customer.createdAt).toLocaleDateString(undefined, {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })
+                      ? new Date(customer.createdAt).toLocaleDateString(
+                          undefined,
+                          {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          },
+                        )
                       : "Recently"}
                   </span>
                 </div>
@@ -265,7 +265,9 @@ export default function CustomerDetails() {
             <span className="text-[11px] font-bold uppercase tracking-wider text-[#78716C]">
               Total Orders Placed
             </span>
-            <p className="mt-1 text-2xl font-black text-[#1C1917]">{totalOrders}</p>
+            <p className="mt-1 text-2xl font-black text-[#1C1917]">
+              {totalOrders}
+            </p>
           </div>
 
           <div className="rounded-2xl border border-[#E5DFD3] bg-[#FAF7F2] p-4">
@@ -281,14 +283,18 @@ export default function CustomerDetails() {
             <span className="text-[11px] font-bold uppercase tracking-wider text-amber-800">
               Active / In Progress
             </span>
-            <p className="mt-1 text-2xl font-black text-amber-800">{pendingOrders}</p>
+            <p className="mt-1 text-2xl font-black text-amber-800">
+              {pendingOrders}
+            </p>
           </div>
 
           <div className="rounded-2xl border border-emerald-200/80 bg-emerald-50/60 p-4">
             <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-800">
               Completed Orders
             </span>
-            <p className="mt-1 text-2xl font-black text-emerald-800">{deliveredOrders}</p>
+            <p className="mt-1 text-2xl font-black text-emerald-800">
+              {deliveredOrders}
+            </p>
           </div>
         </div>
       </div>
@@ -345,7 +351,9 @@ export default function CustomerDetails() {
                   {copiedMeasurements ? (
                     <>
                       <Check size={15} className="text-emerald-600" />
-                      <span className="text-emerald-600">Copied to Clipboard!</span>
+                      <span className="text-emerald-600">
+                        Copied to Clipboard!
+                      </span>
                     </>
                   ) : (
                     <>
@@ -403,7 +411,8 @@ export default function CustomerDetails() {
                 No sizes recorded for {customer.name}
               </h3>
               <p className="mt-1 max-w-sm text-xs text-[#78716C]">
-                Record standard measurements (kameez length, chest, waist, teera) so you can rapidly generate orders.
+                Record standard measurements (kameez length, chest, waist,
+                teera) so you can rapidly generate orders.
               </p>
               <button
                 onClick={() => setIsEditModalOpen(true)}
@@ -434,7 +443,7 @@ export default function CustomerDetails() {
             </div>
 
             <Link
-              to="/dashboard/orders"
+              to="/orders"
               className="inline-flex items-center gap-2 rounded-xl border border-[#D5CDC0] bg-white px-4 py-2 text-xs font-bold text-[#1C1917] hover:bg-[#FAF7F2] transition shadow-xs"
             >
               <ExternalLink size={14} className="text-[#A66324]" />
@@ -446,7 +455,9 @@ export default function CustomerDetails() {
             {isOrdersLoading ? (
               <div className="flex flex-col items-center justify-center py-16 text-[#78716C]">
                 <Loader2 size={32} className="animate-spin text-[#A66324]" />
-                <p className="mt-2 text-xs font-semibold">Pulling order slips...</p>
+                <p className="mt-2 text-xs font-semibold">
+                  Pulling order slips...
+                </p>
               </div>
             ) : orders.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 text-center px-4">
@@ -457,7 +468,8 @@ export default function CustomerDetails() {
                   No orders recorded yet
                 </h4>
                 <p className="mt-1 text-xs text-[#78716C] max-w-sm">
-                  This client hasn't placed any stitching orders yet. You can create an order using their saved measurements.
+                  This client hasn't placed any stitching orders yet. You can
+                  create an order using their saved measurements.
                 </p>
                 <Link
                   to="/dashboard/orders"
@@ -487,11 +499,14 @@ export default function CustomerDetails() {
                         <span>
                           Booked on{" "}
                           {order.createdAt
-                            ? new Date(order.createdAt).toLocaleDateString(undefined, {
-                                month: "short",
-                                day: "numeric",
-                                year: "numeric",
-                              })
+                            ? new Date(order.createdAt).toLocaleDateString(
+                                undefined,
+                                {
+                                  month: "short",
+                                  day: "numeric",
+                                  year: "numeric",
+                                },
+                              )
                             : "Recently"}
                         </span>
                       </p>
@@ -598,7 +613,7 @@ function EditCustomerModal({ customer, onClose, onSuccess }) {
           { label: "Chest (چھاتی)", value: "" },
           { label: "Waist (کمر)", value: "" },
           { label: "Shoulder / Teera (تیرا)", value: "" },
-        ]
+        ],
   );
   const [customLabel, setCustomLabel] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -612,7 +627,7 @@ function EditCustomerModal({ customer, onClose, onSuccess }) {
       setErrorMsg(
         err?.response?.data?.message ||
           err?.response?.data?.error ||
-          "Failed to update customer details."
+          "Failed to update customer details.",
       );
     },
   });
@@ -662,7 +677,10 @@ function EditCustomerModal({ customer, onClose, onSuccess }) {
 
   const handleAddCustomField = () => {
     if (!customLabel.trim()) return;
-    setMeasurements((prev) => [...prev, { label: customLabel.trim(), value: "" }]);
+    setMeasurements((prev) => [
+      ...prev,
+      { label: customLabel.trim(), value: "" },
+    ]);
     setCustomLabel("");
   };
 
@@ -691,7 +709,10 @@ function EditCustomerModal({ customer, onClose, onSuccess }) {
         </div>
 
         {/* Body */}
-        <form onSubmit={handleSubmit} className="overflow-y-auto p-6 space-y-6 bg-white">
+        <form
+          onSubmit={handleSubmit}
+          className="overflow-y-auto p-6 space-y-6 bg-white"
+        >
           {errorMsg && (
             <div className="flex items-center gap-2 rounded-xl bg-red-50 p-3.5 text-xs font-semibold text-red-700 border border-red-200">
               <AlertCircle size={18} className="shrink-0" />
@@ -751,7 +772,9 @@ function EditCustomerModal({ customer, onClose, onSuccess }) {
                       type="text"
                       placeholder="e.g. 40"
                       value={m.value}
-                      onChange={(e) => handleMeasurementChange(idx, e.target.value)}
+                      onChange={(e) =>
+                        handleMeasurementChange(idx, e.target.value)
+                      }
                       className="w-full rounded-lg border border-[#D5CDC0] bg-[#FAF7F2] px-3 py-1.5 pr-8 text-xs font-bold text-[#1C1917] outline-none focus:border-[#A66324] focus:bg-white"
                     />
                     <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-bold text-[#78716C] pointer-events-none">
@@ -830,7 +853,7 @@ function DeleteCustomerModal({ customer, onClose, onSuccess }) {
     onError: (err) => {
       setErrorMsg(
         err?.response?.data?.message ||
-          "Failed to delete customer. Make sure you have permission."
+          "Failed to delete customer. Make sure you have permission.",
       );
     },
   });
@@ -851,8 +874,9 @@ function DeleteCustomerModal({ customer, onClose, onSuccess }) {
           </h3>
           <p className="mt-2 text-xs text-[#78716C] leading-relaxed">
             Are you sure you want to delete{" "}
-            <span className="font-bold text-[#1C1917]">{customer.name}</span>? This
-            will permanently wipe their profile and saved measurements from your shop directory.
+            <span className="font-bold text-[#1C1917]">{customer.name}</span>?
+            This will permanently wipe their profile and saved measurements from
+            your shop directory.
           </p>
         </div>
 
