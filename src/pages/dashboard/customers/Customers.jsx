@@ -69,13 +69,15 @@ export default function Customers() {
       result = result.filter(
         (c) =>
           c.name?.toLowerCase().includes(q) ||
-          c.phoneNumber?.toLowerCase().includes(q)
+          c.phoneNumber?.toLowerCase().includes(q),
       );
     }
 
     // Filter by measurements
     if (filterType === "has-measurements") {
-      result = result.filter((c) => c.measurements && c.measurements.length > 0);
+      result = result.filter(
+        (c) => c.measurements && c.measurements.length > 0,
+      );
     }
 
     // Sorting
@@ -104,12 +106,12 @@ export default function Customers() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedCustomers = filteredCustomers.slice(
     startIndex,
-    startIndex + itemsPerPage
+    startIndex + itemsPerPage,
   );
 
   // Stats
   const totalWithMeasurements = rawCustomers.filter(
-    (c) => c.measurements && c.measurements.length > 0
+    (c) => c.measurements && c.measurements.length > 0,
   ).length;
 
   return (
@@ -134,7 +136,8 @@ export default function Customers() {
               Customer Directory<span className="text-[#C5A880]">.</span>
             </h1>
             <p className="mt-2 text-sm text-[#E7D8CC]/80 sm:text-base leading-relaxed">
-              Keep customer measurements, phone contacts, and tailoring history organized in one central studio ledger.
+              Keep customer measurements, phone contacts, and tailoring history
+              organized in one central studio ledger.
             </p>
           </div>
 
@@ -221,10 +224,11 @@ export default function Customers() {
                   setFilterType("all");
                   setCurrentPage(1);
                 }}
-                className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${filterType === "all"
+                className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
+                  filterType === "all"
                     ? "bg-[#3B2417] text-white shadow-xs"
                     : "text-[#78716C] hover:text-[#1C1917]"
-                  }`}
+                }`}
               >
                 All ({rawCustomers.length})
               </button>
@@ -233,10 +237,11 @@ export default function Customers() {
                   setFilterType("has-measurements");
                   setCurrentPage(1);
                 }}
-                className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${filterType === "has-measurements"
+                className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
+                  filterType === "has-measurements"
                     ? "bg-[#3B2417] text-white shadow-xs"
                     : "text-[#78716C] hover:text-[#1C1917]"
-                  }`}
+                }`}
               >
                 With Sizes ({totalWithMeasurements})
               </button>
@@ -258,20 +263,22 @@ export default function Customers() {
             <div className="flex items-center rounded-xl border border-[#E5DFD3] bg-[#FAF7F2] p-1">
               <button
                 onClick={() => setViewMode("grid")}
-                className={`rounded-lg p-1.5 transition ${viewMode === "grid"
+                className={`rounded-lg p-1.5 transition ${
+                  viewMode === "grid"
                     ? "bg-white text-[#A66324] shadow-xs"
                     : "text-[#78716C] hover:text-[#1C1917]"
-                  }`}
+                }`}
                 title="Grid Ledger View"
               >
                 <Grid size={18} />
               </button>
               <button
                 onClick={() => setViewMode("table")}
-                className={`rounded-lg p-1.5 transition ${viewMode === "table"
+                className={`rounded-lg p-1.5 transition ${
+                  viewMode === "table"
                     ? "bg-white text-[#A66324] shadow-xs"
                     : "text-[#78716C] hover:text-[#1C1917]"
-                  }`}
+                }`}
                 title="Table View"
               >
                 <List size={18} />
@@ -286,7 +293,9 @@ export default function Customers() {
         {isLoading ? (
           <div className="flex flex-col items-center justify-center rounded-3xl border border-[#E5DFD3] bg-white py-20 text-[#78716C] shadow-sm">
             <Loader2 size={36} className="animate-spin text-[#A66324]" />
-            <p className="mt-3 text-sm font-semibold">Opening customer register...</p>
+            <p className="mt-3 text-sm font-semibold">
+              Opening customer register...
+            </p>
           </div>
         ) : isError ? (
           <div className="flex flex-col items-center justify-center rounded-3xl border border-red-200 bg-red-50/50 py-16 text-center px-4">
@@ -295,7 +304,8 @@ export default function Customers() {
               Unable to load customer directory
             </h3>
             <p className="mt-1 text-xs text-[#78716C] max-w-sm">
-              {error?.message || "There was a network issue connecting to the tailoring database."}
+              {error?.message ||
+                "There was a network issue connecting to the tailoring database."}
             </p>
             <button
               onClick={() => queryClient.invalidateQueries(["customers"])}
@@ -313,7 +323,9 @@ export default function Customers() {
               className="mt-4 text-xl font-bold text-[#1C1917]"
               style={{ fontFamily: "'Fraunces', serif" }}
             >
-              {search ? "No matching clients found" : "Your Customer Ledger is Empty"}
+              {search
+                ? "No matching clients found"
+                : "Your Customer Ledger is Empty"}
             </h3>
             <p className="mt-1.5 max-w-md text-xs font-medium text-[#78716C] leading-relaxed">
               {search
@@ -404,7 +416,9 @@ export default function Customers() {
 
                         {/* Phone Number Display */}
                         <div className="mt-3 flex items-center gap-2 text-xs font-semibold text-[#1C1917]">
-                          <span className="text-[#78716C] font-normal">Phone:</span>
+                          <span className="text-[#78716C] font-normal">
+                            Phone:
+                          </span>
                           <span>{customer.phoneNumber}</span>
                         </div>
 
@@ -442,7 +456,8 @@ export default function Customers() {
 
                           {measurements.length > 4 && (
                             <p className="mt-2 text-center text-[10px] font-semibold text-[#A66324]">
-                              +{measurements.length - 4} more size points on file
+                              +{measurements.length - 4} more size points on
+                              file
                             </p>
                           )}
                         </div>
@@ -452,11 +467,14 @@ export default function Customers() {
                       <div className="mt-4 flex items-center justify-between border-t border-[#EDE8DE] pt-3 text-xs">
                         <span className="text-[11px] text-[#78716C]">
                           {customer.createdAt
-                            ? new Date(customer.createdAt).toLocaleDateString(undefined, {
-                              month: "short",
-                              day: "numeric",
-                              year: "numeric",
-                            })
+                            ? new Date(customer.createdAt).toLocaleDateString(
+                                undefined,
+                                {
+                                  month: "short",
+                                  day: "numeric",
+                                  year: "numeric",
+                                },
+                              )
                             : "Recent client"}
                         </span>
                         <span className="inline-flex items-center gap-1 text-xs font-bold text-[#A66324] group-hover:translate-x-1 transition-transform">
@@ -494,7 +512,9 @@ export default function Customers() {
                         return (
                           <tr
                             key={customer._id}
-                            onClick={() => navigate(`/customers/${customer._id}`)}
+                            onClick={() =>
+                              navigate(`/customers/${customer._id}`)
+                            }
                             className="group cursor-pointer transition hover:bg-[#FAF7F2]"
                           >
                             <td className="px-6 py-4">
@@ -520,14 +540,16 @@ export default function Customers() {
                             <td className="px-6 py-4">
                               {customer.measurements?.length > 0 ? (
                                 <div className="flex flex-wrap items-center gap-1.5 max-w-sm">
-                                  {customer.measurements.slice(0, 3).map((m, idx) => (
-                                    <span
-                                      key={idx}
-                                      className="inline-flex items-center rounded-md bg-[#FAF7F2] px-2 py-0.5 text-[11px] font-bold text-[#A66324] border border-[#E5DFD3]"
-                                    >
-                                      {m.label.split(" ")[0]}: {m.value}"
-                                    </span>
-                                  ))}
+                                  {customer.measurements
+                                    .slice(0, 3)
+                                    .map((m, idx) => (
+                                      <span
+                                        key={idx}
+                                        className="inline-flex items-center rounded-md bg-[#FAF7F2] px-2 py-0.5 text-[11px] font-bold text-[#A66324] border border-[#E5DFD3]"
+                                      >
+                                        {m.label.split(" ")[0]}: {m.value}"
+                                      </span>
+                                    ))}
                                   {customer.measurements.length > 3 && (
                                     <span className="text-[11px] font-semibold text-[#78716C]">
                                       +{customer.measurements.length - 3} more
@@ -543,7 +565,9 @@ export default function Customers() {
 
                             <td className="px-6 py-4 text-xs font-medium text-[#78716C]">
                               {customer.createdAt
-                                ? new Date(customer.createdAt).toLocaleDateString()
+                                ? new Date(
+                                    customer.createdAt,
+                                  ).toLocaleDateString()
                                 : "—"}
                             </td>
 
@@ -566,11 +590,13 @@ export default function Customers() {
             {totalPages > 1 && (
               <div className="flex flex-col items-center justify-between gap-3 border-t border-[#E5DFD3] pt-5 sm:flex-row">
                 <p className="text-xs font-semibold text-[#78716C]">
-                  Showing <span className="text-[#1C1917]">{startIndex + 1}</span> to{" "}
+                  Showing{" "}
+                  <span className="text-[#1C1917]">{startIndex + 1}</span> to{" "}
                   <span className="text-[#1C1917]">
                     {Math.min(startIndex + itemsPerPage, totalItems)}
                   </span>{" "}
-                  of <span className="text-[#1C1917]">{totalItems}</span> clients
+                  of <span className="text-[#1C1917]">{totalItems}</span>{" "}
+                  clients
                 </p>
 
                 <div className="flex items-center gap-2">
@@ -583,23 +609,28 @@ export default function Customers() {
                   </button>
 
                   <div className="flex items-center gap-1">
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-                      <button
-                        key={pageNum}
-                        onClick={() => setCurrentPage(pageNum)}
-                        className={`h-9 w-9 rounded-xl text-xs font-bold transition ${currentPage === pageNum
-                            ? "bg-[#3B2417] text-white shadow-sm"
-                            : "border border-[#D5CDC0] bg-white text-[#1C1917] hover:bg-[#FAF7F2]"
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                      (pageNum) => (
+                        <button
+                          key={pageNum}
+                          onClick={() => setCurrentPage(pageNum)}
+                          className={`h-9 w-9 rounded-xl text-xs font-bold transition ${
+                            currentPage === pageNum
+                              ? "bg-[#3B2417] text-white shadow-sm"
+                              : "border border-[#D5CDC0] bg-white text-[#1C1917] hover:bg-[#FAF7F2]"
                           }`}
-                      >
-                        {pageNum}
-                      </button>
-                    ))}
+                        >
+                          {pageNum}
+                        </button>
+                      ),
+                    )}
                   </div>
 
                   <button
                     disabled={currentPage === totalPages}
-                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                    onClick={() =>
+                      setCurrentPage((p) => Math.min(totalPages, p + 1))
+                    }
                     className="rounded-xl border border-[#D5CDC0] bg-white px-3.5 py-2 text-xs font-bold text-[#1C1917] transition hover:bg-[#FAF7F2] disabled:cursor-not-allowed disabled:opacity-40 shadow-xs"
                   >
                     Next
@@ -650,27 +681,45 @@ function AddCustomerModal({ onClose, onSuccess }) {
     },
     onError: (err) => {
       const responseData = err?.response?.data;
+      const status = err?.response?.status;
 
-      // Mongoose validation errors usually arrive as an object keyed by field name,
-      // e.g. { errors: { phoneNumber: { message: "Enter a valid Pakistani phone number" } } }
+      // Mongoose validation errors — e.g. { errors: { phoneNumber: { message: "..." } } }
       if (responseData?.errors && typeof responseData.errors === "object") {
         const extractedFieldErrors = {};
         Object.entries(responseData.errors).forEach(([field, val]) => {
           extractedFieldErrors[field] = val?.message || String(val);
         });
         setFieldErrors(extractedFieldErrors);
-
-        // Show the first one as the main banner too, so it's impossible to miss
-        const firstMessage = Object.values(extractedFieldErrors)[0];
-        setErrorMsg(firstMessage || "Please check the highlighted fields.");
+        setErrorMsg(
+          Object.values(extractedFieldErrors)[0] ||
+            "Please check the highlighted fields.",
+        );
         return;
       }
 
-      // Fallback: single message from backend (duplicate phone, generic failure, etc.)
+      // Duplicate key error — MongoDB code 11000, usually surfaced as status 409 or 400
+      // depending on how your backend's catch block handles it
+      const backendMessage =
+        responseData?.message || responseData?.messaage || "";
+      const isDuplicatePhone =
+        status === 409 ||
+        responseData?.code === 11000 ||
+        /duplicate/i.test(backendMessage) ||
+        /already exists/i.test(backendMessage) ||
+        /E11000/i.test(backendMessage);
+
+      if (isDuplicatePhone) {
+        setFieldErrors({
+          phoneNumber: "A customer with this phone number already exists.",
+        });
+        setErrorMsg("A customer with this phone number already exists.");
+        return;
+      }
+
+      // Fallback: any other generic error
       setErrorMsg(
-        responseData?.message ||
-        responseData?.messaage ||
-        "Failed to add customer. Please check the inputs and try again."
+        backendMessage ||
+          "Failed to add customer. Please check the inputs and try again.",
       );
     },
   });
@@ -705,7 +754,8 @@ function AddCustomerModal({ onClose, onSuccess }) {
       }));
 
     if (validMeasurements.length === 0) {
-      newFieldErrors.measurements = "Please provide at least one measurement (e.g. Length or Chest).";
+      newFieldErrors.measurements =
+        "Please provide at least one measurement (e.g. Length or Chest).";
     }
 
     if (Object.keys(newFieldErrors).length > 0) {
@@ -727,7 +777,8 @@ function AddCustomerModal({ onClose, onSuccess }) {
 
     // prevent more than one decimal point (e.g. typing "40..5")
     const parts = sanitized.split(".");
-    const cleaned = parts.length > 2 ? `${parts[0]}.${parts.slice(1).join("")}` : sanitized;
+    const cleaned =
+      parts.length > 2 ? `${parts[0]}.${parts.slice(1).join("")}` : sanitized;
 
     setMeasurements((prev) => {
       const updated = [...prev];
@@ -742,7 +793,10 @@ function AddCustomerModal({ onClose, onSuccess }) {
 
   const handleAddCustomField = () => {
     if (!customLabel.trim()) return;
-    setMeasurements((prev) => [...prev, { label: customLabel.trim(), value: "" }]);
+    setMeasurements((prev) => [
+      ...prev,
+      { label: customLabel.trim(), value: "" },
+    ]);
     setCustomLabel("");
   };
 
@@ -782,7 +836,10 @@ function AddCustomerModal({ onClose, onSuccess }) {
         </div>
 
         {/* Modal Body */}
-        <form onSubmit={handleSubmit} className="overflow-y-auto p-6 space-y-6 bg-white">
+        <form
+          onSubmit={handleSubmit}
+          className="overflow-y-auto p-6 space-y-6 bg-white"
+        >
           {errorMsg && (
             <div className="flex items-center gap-2.5 rounded-xl bg-red-50 p-3.5 text-xs font-semibold text-red-700 border border-red-200 shadow-xs">
               <AlertCircle size={18} className="shrink-0 text-red-600" />
@@ -807,15 +864,19 @@ function AddCustomerModal({ onClose, onSuccess }) {
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value);
-                  if (fieldErrors.name) setFieldErrors((prev) => ({ ...prev, name: undefined }));
+                  if (fieldErrors.name)
+                    setFieldErrors((prev) => ({ ...prev, name: undefined }));
                 }}
-                className={`w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm font-semibold text-[#1C1917] outline-none transition focus:ring-2 shadow-xs ${fieldErrors.name
+                className={`w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm font-semibold text-[#1C1917] outline-none transition focus:ring-2 shadow-xs ${
+                  fieldErrors.name
                     ? "border-red-400 focus:border-red-500 focus:ring-red-200"
                     : "border-[#D5CDC0] focus:border-[#A66324] focus:ring-[#A66324]/20"
-                  }`}
+                }`}
               />
               {fieldErrors.name && (
-                <p className="mt-1 text-[11px] font-semibold text-red-600">{fieldErrors.name}</p>
+                <p className="mt-1 text-[11px] font-semibold text-red-600">
+                  {fieldErrors.name}
+                </p>
               )}
             </div>
 
@@ -830,21 +891,29 @@ function AddCustomerModal({ onClose, onSuccess }) {
                 value={phoneNumber}
                 onChange={(e) => {
                   // only digits, max 11 characters (matches 03XXXXXXXXX)
-                  const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 11);
+                  const digitsOnly = e.target.value
+                    .replace(/\D/g, "")
+                    .slice(0, 11);
                   setPhoneNumber(digitsOnly);
                   if (fieldErrors.phoneNumber)
-                    setFieldErrors((prev) => ({ ...prev, phoneNumber: undefined }));
+                    setFieldErrors((prev) => ({
+                      ...prev,
+                      phoneNumber: undefined,
+                    }));
                 }}
-                className={`w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm font-semibold text-[#1C1917] outline-none transition focus:ring-2 shadow-xs ${fieldErrors.phoneNumber
+                className={`w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm font-semibold text-[#1C1917] outline-none transition focus:ring-2 shadow-xs ${
+                  fieldErrors.phoneNumber
                     ? "border-red-400 focus:border-red-500 focus:ring-red-200"
                     : "border-[#D5CDC0] focus:border-[#A66324] focus:ring-[#A66324]/20"
-                  }`}
+                }`}
               />
               <p
-                className={`mt-1 text-[11px] font-semibold ${fieldErrors.phoneNumber ? "text-red-600" : "text-[#78716C]"
-                  }`}
+                className={`mt-1 text-[11px] font-semibold ${
+                  fieldErrors.phoneNumber ? "text-red-600" : "text-[#78716C]"
+                }`}
               >
-                {fieldErrors.phoneNumber || "Format: 03XXXXXXXXX (Standard Pakistani mobile number)"}
+                {fieldErrors.phoneNumber ||
+                  "Format: 03XXXXXXXXX (Standard Pakistani mobile number)"}
               </p>
             </div>
           </div>
@@ -869,7 +938,9 @@ function AddCustomerModal({ onClose, onSuccess }) {
               </span>
               <div className="flex flex-wrap gap-1.5">
                 {MEASUREMENT_PRESETS.map((preset, idx) => {
-                  const alreadyAdded = measurements.some((m) => m.label === preset.label);
+                  const alreadyAdded = measurements.some(
+                    (m) => m.label === preset.label,
+                  );
                   if (alreadyAdded) return null;
                   return (
                     <button
@@ -901,7 +972,9 @@ function AddCustomerModal({ onClose, onSuccess }) {
                       inputMode="decimal"
                       placeholder="e.g. 40"
                       value={m.value}
-                      onChange={(e) => handleMeasurementChange(idx, e.target.value)}
+                      onChange={(e) =>
+                        handleMeasurementChange(idx, e.target.value)
+                      }
                       className="w-full rounded-lg border border-[#D5CDC0] bg-[#FAF7F2] px-3 py-1.5 pr-8 text-xs font-bold text-[#1C1917] outline-none focus:border-[#A66324] focus:bg-white"
                     />
                     <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-bold text-[#78716C] pointer-events-none">
@@ -920,7 +993,9 @@ function AddCustomerModal({ onClose, onSuccess }) {
               ))}
             </div>
             {fieldErrors.measurements && (
-              <p className="text-[11px] font-semibold text-red-600">{fieldErrors.measurements}</p>
+              <p className="text-[11px] font-semibold text-red-600">
+                {fieldErrors.measurements}
+              </p>
             )}
 
             {/* Custom Field Input */}
@@ -963,7 +1038,9 @@ function AddCustomerModal({ onClose, onSuccess }) {
               className="inline-flex items-center gap-2 rounded-xl bg-[#A66324] hover:bg-[#8C511B] px-6 py-2.5 text-xs font-bold text-white shadow-md hover:shadow-lg transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
             >
               {isPending && <Loader2 size={15} className="animate-spin" />}
-              <span>{isPending ? "Recording in Ledger..." : "Save Customer"}</span>
+              <span>
+                {isPending ? "Recording in Ledger..." : "Save Customer"}
+              </span>
             </button>
           </div>
         </form>
