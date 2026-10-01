@@ -250,7 +250,7 @@ export default function CustomerDetails() {
           {/* Direct CTA */}
           <div className="flex items-center gap-3">
             <Link
-              to="/dashboard/orders"
+              to="/orders"
               className="inline-flex items-center gap-2 rounded-xl bg-[#A66324] hover:bg-[#8C511B] px-5 py-3 text-xs font-bold text-white shadow-md transition"
             >
               <Plus size={16} />
