@@ -169,7 +169,7 @@ export default function LoginPage() {
               className="text-[28px] leading-tight text-[#221F1A] mb-1"
               style={{ fontFamily: "'Fraunces', serif" }}
             >
-              Welcome back
+              Welcome back!
             </h1>
             <p className="text-[15px] text-[#221F1A]/55 mb-7">
               Log in to your shop's order book.
