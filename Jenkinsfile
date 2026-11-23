@@ -9,27 +9,21 @@ pipeline {
     stages {
         stage('Build image') {
             steps {
-                sh 'docker build -t $IMAGE:$TAG .'
+                sh 'docker build -t $IMAGE:$TAG -t $IMAGE:latest .'
             }
         }
 
-        stage('Show images') {
+        stage('Push image') {
             steps {
-                sh 'docker images | head -5'
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub',
+                    usernameVariable: 'DH_USER',
+                    passwordVariable: 'DH_PASS')]) {
+                    sh 'echo $DH_PASS | docker login -u $DH_USER --password-stdin'
+                    sh 'docker push $IMAGE:$TAG'
+                    sh 'docker push $IMAGE:latest'
+                }
             }
         }
-        stage('Push image') {
-    steps {
-        withCredentials([usernamePassword(
-            credentialsId: 'dockerhub',
-            usernameVariable: 'DH_USER',
-            passwordVariable: 'DH_PASS')]) {
-            sh 'echo $DH_PASS | docker login -u $DH_USER --password-stdin'
-            sh 'docker tag $IMAGE:$TAG $IMAGE:latest'
-            sh 'docker push $IMAGE:$TAG'
-            sh 'docker push $IMAGE:latest'
-        }
-    }
-}
     }
 }
