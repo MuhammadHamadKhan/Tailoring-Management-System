@@ -1,10 +1,11 @@
 pipeline {
     agent any
 
-    environment {
-        IMAGE = "hamad14/tailoring-frontend"
-        TAG   = "${env.GIT_COMMIT}"
-    }
+  environment {
+    IMAGE    = "hamad14/tailoring-frontend"
+    TAG      = "${env.GIT_COMMIT}"
+    APP_HOST = "ubuntu@172.31.43.253"
+}
 
     stages {
         stage('Build image') {
@@ -25,5 +26,18 @@ pipeline {
                 }
             }
         }
+        stage('Deploy') {
+    steps {
+        sshagent(['ec2-key']) {
+            sh '''
+                ssh -o StrictHostKeyChecking=no $APP_HOST "
+                    cd ~/tailoring &&
+                    docker compose pull frontend &&
+                    docker compose up -d frontend
+                "
+            '''
+        }
+    }
+}
     }
 }
